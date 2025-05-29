@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 추천기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>재료를 입력하세요</h1>
+    <form method="POST" accept-charset="UTF-8">
+        <input type="text" name="ingredients" placeholder="예: 김치, 계란, 밥">
+        <input type="submit" value="추천받기">
+    </form>
+
+    <h2>추천 레시피</h2>
+    <ul>
+    {% for recipe in recipes %}
+    <li>
+        <a href="{{ url_for('recipe_detail', name=recipe.name) }}">{{ recipe.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
