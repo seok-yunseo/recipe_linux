@@ -16,15 +16,16 @@ def get_recipes(ingredients):
     
     # ✅ 재료 이름이 일치하는 레시피를 검색하는 SQL 쿼리
     query = f"""
-    SELECT DISTINCT r.name, r.recipe #중복 없이 레시피 이름과 조리법 가져오기
+    SELECT DISTINCT r.name, r.recipe     -- 중복 없이 레시피 이름과 조리법 가져오기
     FROM recipes r
     JOIN recipe_ingredients ri ON r.id = ri.recipe_id
     JOIN ingredients i ON i.id = ri.ingredient_id
-    WHERE i.name IN ({placeholders}) #입력한 재료 중 하나 이상이 포함된 레시피만 조회
+    WHERE i.name IN ({placeholders})     -- 입력한 재료 중 하나 이상이 포함된 레시피만 조회
     """
     cur.execute(query, ingredient_list) # 실제 재료값을 쿼리에 바인딩하여 실행
     rows = cur.fetchall() # 결과를 모두 가져오기
     conn.close() # DB 연결 종료
+    
     # 결과를 딕셔너리 형태로 변환 (템플릿에서 사용하기 쉽게)
     return [{"name": row[0], "recipe": row[1]} for row in rows]
     
