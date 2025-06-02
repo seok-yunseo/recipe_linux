@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko"> <!-- 문서 언어를 한국어로 지정 -->
 <head>
-    <meta charset="UTF-8">
-    <title>레시피 추천기</title>
+    <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
+    <title>레시피 추천기</title> <!-- 브라우저 탭에 표시될 페이지 제목 -->
+    <!-- Flask의 url_for 함수로 정적 파일(style.css)의 경로를 동적으로 가져와 CSS 연결 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- 페이지 상단 큰 제목 -->
     <h1>재료를 입력하세요</h1>
+
+    <!-- POST 방식으로 데이터를 서버에 전송하는 입력 폼 -->
     <form method="POST" accept-charset="UTF-8">
+        <!-- 사용자에게 재료 입력을 유도하는 텍스트 박스 -->
         <input type="text" name="ingredients" placeholder="예: 김치, 계란, 밥">
+        <!-- 폼 제출 버튼 -->
         <input type="submit" value="추천받기">
     </form>
 
+    <!-- 추천 레시피 목록 제목 -->
     <h2>추천 레시피</h2>
     <ul>
+    <!-- Flask 템플릿 문법: 서버에서 받은 recipes 리스트를 반복하여 각 레시피를 리스트 항목으로 출력 -->
     {% for recipe in recipes %}
     <li>
+        <!-- 레시피 이름을 클릭하면 해당 레시피 상세 페이지로 이동 -->
         <a href="{{ url_for('recipe_detail', name=recipe.name) }}">{{ recipe.name }}</a>
     </li>
     {% endfor %}
