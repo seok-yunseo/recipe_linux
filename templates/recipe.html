@@ -1,12 +1,12 @@
-<!DOCTYPE html> #templates/recipe.html파일에 입력
-<html lang="ko">
+<!DOCTYPE html> <!-- HTML5 문서임을 선언, templates/recipe.html 파일에 저장 -->
+<html lang="ko"> <!-- 페이지 언어를 한국어로 설정 -->
 <head>
-    <meta charset="UTF-8">
-    <title>{{ recipe.name }} 레시피</title>
+    <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
+    <title>{{ recipe.name }} 레시피</title> <!-- 페이지 제목에 레시피 이름 동적 출력 -->
 </head>
 <body>
-    <h1>{{ recipe.name }}</h1>
-    <p>{{ recipe.recipe }}</p>
-    <a href="/">← 검색으로 돌아가기</a>
+    <h1>{{ recipe.name }}</h1> <!-- 레시피 이름을 큰 제목으로 표시 -->
+    <p>{{ recipe.recipe }}</p> <!-- 레시피 조리법 내용을 문단으로 출력 -->
+    <a href="/">← 검색으로 돌아가기</a> <!-- 메인 검색 페이지로 돌아가는 링크 -->
 </body>
 </html>
