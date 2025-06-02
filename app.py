@@ -2,6 +2,7 @@ from flask import Flask, request, render_template # Flask의 웹 기능, 요청 
 import sqlite3 # SQLite 데이터베이스를 사용하기 위한 모듈
 
 app = Flask(__name__) # Flask 앱 생성
+
 # ✅ 입력된 재료로 레시피를 검색하는 함수
 def get_recipes(ingredients):
     conn = sqlite3.connect('recipes.db')  # 레시피 DB 연결
@@ -12,6 +13,7 @@ def get_recipes(ingredients):
         return []
     # SQL 쿼리에서 사용할 ? 플래이스홀더 생성 (예: ?,?,?)
     placeholders = ','.join(['?'] * len(ingredient_list))
+    
     # ✅ 재료 이름이 일치하는 레시피를 검색하는 SQL 쿼리
     query = f"""
     SELECT DISTINCT r.name, r.recipe #중복 없이 레시피 이름과 조리법 가져오기
@@ -25,6 +27,7 @@ def get_recipes(ingredients):
     conn.close() # DB 연결 종료
     # 결과를 딕셔너리 형태로 변환 (템플릿에서 사용하기 쉽게)
     return [{"name": row[0], "recipe": row[1]} for row in rows]
+    
 # ✅ 메인 페이지: 재료 입력 폼과 결과 출력
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -33,6 +36,7 @@ def index():
         ingredients = request.form["ingredients"] # 폼에서 'ingredients' 필드 값 가져오기
         recipes = get_recipes(ingredients) # 입력 재료 기반으로 레시피 검색
     return render_template("index.html", recipes=recipes) # 결과를 index.html로 렌더링
+    
 # ✅ 개별 레시피 상세 보기 페이지
 @app.route("/recipe/<name>")
 def recipe_detail(name):
